@@ -1,0 +1,166 @@
+/* PAGE */
+
+body {
+	margin: 0;
+
+	background: #F9F9FA;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+
+	min-height: 100vh;
+}
+
+/* this is just unneeded fanciness */
+.page {
+	flex: 1;
+
+	min-height: 10px;
+	background: bottom -220px right 0px / auto no-repeat url("http://localhost/~manuel/bgimage.png"),
+	radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)),
+	linear-gradient(-30deg, #233674, #748ddd 80%);
+	image-rendering: crisp-edges;
+}
+
+/* BOOKMARK BAR */
+
+.bookmark-bar-wrapper {
+	border-bottom: solid 1px #A7A8A9;
+	box-shadow: 0 1px 4px 0 rgba(12, 12, 13, 0.2);
+
+	--icon-size: 16px;
+	font-size: 0.83em; /* with default 16px => 13.3px */
+	font-family: sans-serif;
+	line-height: var(--icon-size);
+}
+.bookmark-bar {
+	display: flex;
+	flex-direction: row;
+
+	height: calc(var(--icon-size) + 16px);
+	padding: 0 8px;
+
+	background: #F6F6F7;
+}
+.bookmark-bar #origin-marker {
+	width: 0;
+}
+
+/* BOOKMARKS */
+
+.bookmark,
+.bookmark-folder {
+	margin: 4px 2px;
+}
+/* TODO ponder and maybe remove
+.bookmark#dragged,
+.bookmark-folder#dragged {
+	background: #C6C6C7;
+}*/
+
+.bookmark span,
+.bookmark-item span {
+	max-width: 280px;
+
+	overflow: hidden;
+	text-overflow: ellipsis; /* TODO currently in draft: fade(20px) */
+}
+
+.bookmark > .bookmark-layout,
+.bookmark-folder > .bookmark-layout {
+	border-radius: 4px;
+}
+.bookmark > .bookmark-layout:hover,
+.bookmark-folder > .bookmark-layout:hover {
+	transition: background ease-in-out 300ms;
+	background: #E6E6E7;
+}
+
+.bookmark-layout {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	gap: 4px;
+	padding: 4px;
+
+	white-space: nowrap;
+
+	text-decoration: none;
+	user-select: none;
+	cursor: default;
+	color: inherit;
+}
+
+.bookmark-icon {
+	width: var(--icon-size);
+	height: var(--icon-size);
+}
+
+/* FOLDERS */
+
+[open] > .bookmark-dropdown {
+	display: initial;
+}
+.bookmark-folder[open=left] > .bookmark-dropdown {
+	left: unset;
+	right: 0;
+}
+.bookmark-folder[open=right] > .bookmark-dropdown {
+	left: 0;
+	right: unset;
+}
+.bookmark-folder,
+.bookmark-folder-item {
+	position: relative;
+}
+.bookmark-dropdown {
+	display: none;
+
+	position: absolute;
+	top: calc(var(--icon-size) + 12px);
+
+	min-width: 60px;
+	min-height: calc(var(--icon-size) + 8px);
+	/*max-height: calc(100vh - 10px);*/
+
+	padding-top: 4px;
+	padding-bottom: 6px;
+
+	background: #F6F6F7;
+	border: 1px solid #A7A8A9;
+	border-radius: 0 0 8px 8px;
+}
+.bookmark-folder-item .bookmark-dropdown {
+	top: -5px;
+}
+/*
+.bookmark-folder-item[up] > .bookmark-dropdown {
+	top: unset;
+	bottom: -7px;
+}*/
+.bookmark-folder-item[open=left] > .bookmark-dropdown {
+	left: unset;
+	right: 100%;
+}
+.bookmark-folder-item[open=right] > .bookmark-dropdown {
+	left: 100%;
+	right: unset;
+}
+
+.bookmark-item > .bookmark-layout,
+.bookmark-folder-item > .bookmark-layout {
+	padding: 4px 8px;
+}
+.bookmark-item > .bookmark-layout:hover,
+.bookmark-folder-item > .bookmark-layout:hover,
+.bookmark-folder-item[open] > .bookmark-layout {
+	background: #62A2E7;
+	color: #FFF;
+}
+.bookmark-folder-item > .bookmark-layout:hover > svg polygon,
+.bookmark-folder-item[open] > .bookmark-layout > svg polygon {
+	fill: #FFF;
+}

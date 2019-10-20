@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>@NewTab</title>
+	<link rel="icon" type="image/png" href="chrome://branding/content/icon32.png"/>
+	<link rel="stylesheet" href="newtab.css"/>
+	<script type="application/javascript" src="newtab.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="bookmark-bar-wrapper">
+			<div class="bookmark-bar"></div>
+		</div>
+		<div class="page"></div>
+	</div>
+
+	<template id="bookmark-templates">
+		<div class="bookmark">
+			<a class="bookmark-layout" href="" target="_self">
+				<img class="bookmark-icon" alt="" src=""/>
+				<span class="bookmark-title"></span>
+			</a>
+		</div>
+		<div class="bookmark-item">
+			<a class="bookmark-layout" href="" target="_self">
+				<img class="bookmark-icon" alt="" src=""/>
+				<span class="bookmark-title"></span>
+			</a>
+		</div>
+		<div class="bookmark-folder">
+			<div class="bookmark-layout">
+				<img class="bookmark-icon" alt="" src="chrome://browser/skin/places/folder.svg"/>
+				<span class="bookmark-title"></span>
+			</div>
+			<div class="bookmark-dropdown"></div>
+		</div>
+		<div class="bookmark-folder-item">
+			<div class="bookmark-layout">
+				<img class="bookmark-icon" alt="" src="chrome://browser/skin/places/folder.svg"/>
+				<span class="bookmark-title"></span>
+				<svg width="12px" height="12px" viewBox="0 0 20 20">
+					<polygon points="20 10 8 16.928 8 3.072" stroke="none"fill="#666667"></polygon>
+				</svg>
+			</div>
+			<div class="bookmark-dropdown"></div>
+		</div>
+	</template>
+</body>
+</html>

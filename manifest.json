@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "bookmark.newtab",
+  "version": "1.0.0",
+
+  "developer": {
+    "name": "Manuel"
+  },
+
+  "description": "Shows a page with a bookmark bar instead of the default tab page",
+
+  "applications": {
+    "gecko": {
+      "id": "@bookmarknewtab"
+    }
+  },
+
+  "background": {
+    "scripts": ["clearClosedTabs.js"]
+  },
+
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+
+  "permissions": [
+    "sessions",
+    "tabs",
+    "storage",
+    "bookmarks"
+  ]
+}
