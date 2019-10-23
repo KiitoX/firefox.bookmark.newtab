@@ -453,6 +453,17 @@ window.addEventListener("load", function () {
 		});
 	};
 
+	let newtabUrl = browser.extension.getURL("newtab.html");
+
+	browser.history.deleteUrl({url: newtabUrl});
+
+	window.addEventListener("beforeunload", function(evt) {
+		browser.tabs.getCurrent((tab) => {
+			let rt = browser.runtime.connect();
+			rt.postMessage({tabId: tab.id});
+		});
+	});
+
 	loadBookmarks().then(function() {
 		console.log("done");
 	});

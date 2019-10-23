@@ -27,6 +27,7 @@
     "sessions",
     "tabs",
     "storage",
-    "bookmarks"
+    "bookmarks",
+	"history"
   ]
 }
