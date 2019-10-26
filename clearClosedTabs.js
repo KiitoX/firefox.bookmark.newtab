@@ -20,3 +20,17 @@ async function tabComms(p) {
 }
 
 browser.runtime.onConnect.addListener(tabComms);
+
+async function addIcon(tab) {
+	let hasBookmark = await browser.bookmarks.search({url: tab.url});
+	if (hasBookmark.length > 0) {
+		let idMap = {};
+		hasBookmark.forEach(function(bookmark) {
+			idMap[bookmark.id] = tab.favIconUrl;
+		});
+		browser.storage.local.set(idMap).then(console.log, console.log);
+		browser.storage.local.get([hasBookmark[0].id]).then(console.log);
+	}
+}
+
+browser.pageAction.onClicked.addListener(addIcon);

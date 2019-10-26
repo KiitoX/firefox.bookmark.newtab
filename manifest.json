@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "bookmark.newtab",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "developer": {
     "name": "Manuel"
   },
@@ -10,6 +10,18 @@
     "gecko": {
       "id": "@bookmarknewtab"
     }
+  },
+  "page_action": {
+    "default_title": "Store favicon",
+    "default_icon": {
+      "19": "ico-19.png",
+      "38": "ico-38.png"
+    },
+    "show_matches": [
+      "http://*/*",
+      "https://*/*"
+    ],
+    "pinned": false
   },
   "background": {
     "scripts": [

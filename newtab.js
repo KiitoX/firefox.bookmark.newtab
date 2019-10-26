@@ -263,7 +263,7 @@ window.addEventListener("load", function() {
 		let toolbar = await browser.bookmarks.getSubTree("toolbar_____");
 		toolbar = toolbar[0];
 
-		let handleNode = function(node, folder, level) {
+		let handleNode = async function(node, folder, level) {
 			if (!node.url && (!node.type || node.type === "folder")) {
 				let subFolder;
 				if (!folder) {
@@ -281,17 +281,23 @@ window.addEventListener("load", function() {
 					return;
 				}
 
+				let icon;
+				let idMap = await browser.storage.local.get(node.id);
+				if (idMap[node.id]) {
+					icon = idMap[node.id];
+					console.log("got stored icon for", node.url);
+				}
 				if (!folder) {
-					addBookmark(node.url, node.title);
+					addBookmark(node.url, node.title, icon);
 				} else {
-					addBookmarkItem(folder, node.url, node.title);
+					addBookmarkItem(folder, node.url, node.title, icon);
 				}
 			}
 		};
 
-		toolbar.children.forEach(function(node) {
-			handleNode(node);
-		});
+		for (let node of toolbar.children) {
+			await handleNode(node);
+		}
 	};
 
 	let newTabUrl = browser.extension.getURL("newtab.html");
