@@ -240,7 +240,7 @@ window.addEventListener("load", function() {
 		let openFolder = bookmarkBar.querySelector(".bookmark-folder[open]");
 		if (openFolder) {
 			// only operate if a folder has been opened
-			if (openFolder.contains(event.target.prototype)) {
+			if (openFolder.contains(event.target)) {
 				// we clicked on something within, this event is just passed on
 			} else {
 				// we clicked outside of an open folder, we should close it
