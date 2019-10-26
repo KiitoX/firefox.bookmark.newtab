@@ -18,7 +18,7 @@ body {
 	flex: 1;
 
 	min-height: 10px;
-	background: bottom -220px right 0px / auto no-repeat url("http://localhost/~manuel/bgimage.png"),
+	background: bottom -220px right 0 / auto no-repeat url("http://localhost/~manuel/bgimage.png"),
 	radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)),
 	linear-gradient(-30deg, #233674, #748ddd 80%);
 	image-rendering: crisp-edges;
@@ -35,6 +35,7 @@ body {
 	font-family: sans-serif;
 	line-height: var(--icon-size);
 }
+
 .bookmark-bar {
 	display: flex;
 	flex-direction: row;
@@ -44,6 +45,7 @@ body {
 
 	background: #F6F6F7;
 }
+
 .bookmark-bar #origin-marker {
 	width: 0;
 }
@@ -54,6 +56,7 @@ body {
 .bookmark-folder {
 	margin: 4px 2px;
 }
+
 /* TODO ponder and maybe remove
 .bookmark#dragged,
 .bookmark-folder#dragged {
@@ -72,6 +75,7 @@ body {
 .bookmark-folder > .bookmark-layout {
 	border-radius: 4px;
 }
+
 .bookmark > .bookmark-layout:hover,
 .bookmark-folder > .bookmark-layout:hover {
 	transition: background ease-in-out 300ms;
@@ -99,23 +103,32 @@ body {
 	height: var(--icon-size);
 }
 
+.bookmark-folder-item svg {
+	width: 12px;
+	height: 12px;
+}
+
 /* FOLDERS */
 
 [open] > .bookmark-dropdown {
 	display: initial;
 }
+
 .bookmark-folder[open=left] > .bookmark-dropdown {
 	left: unset;
 	right: 0;
 }
+
 .bookmark-folder[open=right] > .bookmark-dropdown {
 	left: 0;
 	right: unset;
 }
+
 .bookmark-folder,
 .bookmark-folder-item {
 	position: relative;
 }
+
 .bookmark-dropdown {
 	display: none;
 
@@ -133,9 +146,11 @@ body {
 	border: 1px solid #A7A8A9;
 	border-radius: 0 0 8px 8px;
 }
+
 .bookmark-folder-item .bookmark-dropdown {
 	top: -5px;
 }
+
 /*
 .bookmark-folder-item[up] > .bookmark-dropdown {
 	top: unset;
@@ -145,6 +160,7 @@ body {
 	left: unset;
 	right: 100%;
 }
+
 .bookmark-folder-item[open=right] > .bookmark-dropdown {
 	left: 100%;
 	right: unset;
@@ -154,12 +170,14 @@ body {
 .bookmark-folder-item > .bookmark-layout {
 	padding: 4px 8px;
 }
+
 .bookmark-item > .bookmark-layout:hover,
 .bookmark-folder-item > .bookmark-layout:hover,
 .bookmark-folder-item[open] > .bookmark-layout {
 	background: #62A2E7;
 	color: #FFF;
 }
+
 .bookmark-folder-item > .bookmark-layout:hover > svg polygon,
 .bookmark-folder-item[open] > .bookmark-layout > svg polygon {
 	fill: #FFF;

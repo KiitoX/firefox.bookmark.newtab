@@ -1,4 +1,4 @@
-window.addEventListener("load", function () {
+window.addEventListener("load", function() {
 	let templates = document.getElementById("bookmark-templates").content;
 	let bookmarkTemplate = templates.querySelector(".bookmark");
 	let bookmarkItemTemplate = templates.querySelector(".bookmark-item");
@@ -46,7 +46,7 @@ window.addEventListener("load", function () {
 		}
 	};
 
-	let addBookmark = function (url, name, icon) {
+	let addBookmark = function(url, name, icon) {
 		let bookmark = document.importNode(bookmarkTemplate, true);
 
 		configureBookmark(bookmark, url, name, icon);
@@ -54,13 +54,13 @@ window.addEventListener("load", function () {
 		bookmarkBar.appendChild(bookmark);
 	};
 
-	let hoverBookmarkItem = function (parentFolder) {
+	let hoverBookmarkItem = function(parentFolder) {
 		// get any open bookmark folder
 		let openFolderItem = parentFolder.querySelector(".bookmark-folder-item[open]");
 		// if one exists and has no close timeout yet
 		if (openFolderItem && !openFolderItem.closeTimeout) {
 			// add close timeout
-			openFolderItem.closeTimeout = window.setTimeout(function () {
+			openFolderItem.closeTimeout = window.setTimeout(function() {
 				toggleFolder(openFolderItem);
 				openFolderItem.closeTimeout = null;
 			}, 300);
@@ -73,7 +73,7 @@ window.addEventListener("load", function () {
 		}
 	};
 
-	let addBookmarkItem = function (folder, url, name, icon) {
+	let addBookmarkItem = function(folder, url, name, icon) {
 		let bookmarkItem = document.importNode(bookmarkItemTemplate, true);
 
 		let item = bookmarkItem.querySelector(".bookmark-layout");
@@ -192,7 +192,7 @@ window.addEventListener("load", function () {
 
 	let hoverFolderItem = function(parentFolder, folderItem) {
 		if (!folderItem.openTimeout && !folderItem.hasAttribute("open")) {
-			folderItem.openTimeout = window.setTimeout(function () {
+			folderItem.openTimeout = window.setTimeout(function() {
 				// if another folder is opened on this level, close it
 				let openFolderItem = parentFolder.querySelector(".bookmark-folder-item[open]");
 				if (openFolderItem) {
@@ -272,11 +272,11 @@ window.addEventListener("load", function () {
 				} else {
 					subFolder = addFolderItem(folder, node.title, level);
 				}
-				node.children.forEach(function (childNode) {
+				node.children.forEach(function(childNode) {
 					handleNode(childNode, subFolder, level + 1);
 				});
 			} else if (node.url && (!node.type || node.type === "bookmark")) {
-				if(node.url.startsWith("place:")) {
+				if (node.url.startsWith("place:")) {
 					// this is a special thingy we can't really work with...
 					return;
 				}
@@ -298,7 +298,7 @@ window.addEventListener("load", function () {
 
 	browser.history.deleteUrl({url: newTabUrl}).then();
 
-	window.addEventListener("beforeunload", function () {
+	window.addEventListener("beforeunload", function() {
 		// when moving away from the site, dispatch signal to background script
 		// which in turn checks whether the containing tab has been closed
 		// if it has been, it clears this page from the last opened tabs menu
