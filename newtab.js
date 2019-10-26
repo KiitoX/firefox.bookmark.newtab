@@ -240,7 +240,7 @@ window.addEventListener("load", function () {
 		let openFolder = bookmarkBar.querySelector(".bookmark-folder[open]");
 		if (openFolder) {
 			// only operate if a folder has been opened
-			if (openFolder.contains(event.target)) {
+			if (openFolder.contains(event.target.prototype)) {
 				// we clicked on something within, this event is just passed on
 			} else {
 				// we clicked outside of an open folder, we should close it
@@ -294,12 +294,15 @@ window.addEventListener("load", function () {
 		});
 	};
 
-	let newtabUrl = browser.extension.getURL("newtab.html");
+	let newTabUrl = browser.extension.getURL("newtab.html");
 
-	browser.history.deleteUrl({url: newtabUrl});
+	browser.history.deleteUrl({url: newTabUrl}).then();
 
-	window.addEventListener("beforeunload", function(evt) {
-		browser.tabs.getCurrent((tab) => {
+	window.addEventListener("beforeunload", function () {
+		// when moving away from the site, dispatch signal to background script
+		// which in turn checks whether the containing tab has been closed
+		// if it has been, it clears this page from the last opened tabs menu
+		browser.tabs.getCurrent().then((tab) => {
 			let rt = browser.runtime.connect();
 			rt.postMessage({tabId: tab.id});
 		});
