@@ -156,8 +156,8 @@ window.addEventListener("load", function () {
 		if (!url.match(/^(https?|ftps?|file|mailto|javascript):/g)) {
 			// url is seemingly malformed, we're gonna assume it to be https
 			link = "https://" + url;
-			// not showing the change is (for now) deliberate but up for contention,
-			// depending on how reliable this will be
+			// this /should/ never be an issue, as it seems firefox already handles this
+			// issue on bookmark creation, I'll be leaving it in for now though, just in case
 			console.error("malformed url", url, "assumed to be", anchor.href);
 		}
 		anchor.href = link;
@@ -242,7 +242,6 @@ window.addEventListener("load", function () {
 			if (folder.classList.contains("bookmark-folder-item")) {
 				// position only matters on bookmark items, for now
 				let parent = folder.closest("[open]");
-				console.log(parent, parent.getAttribute("open"), parent.hasAttribute("open"));
 				if (parent) {
 					// by default, copy the parent direction
 					folder.setAttribute("open", parent.getAttribute("open"));
@@ -430,14 +429,6 @@ window.addEventListener("load", function () {
 				if(node.url.startsWith("place:")) {
 					// this is a special thingy we can't really work with...
 					return;
-				} else if (node.url.startsWith("chrome-extension://klbibkeccnjlkjkiokjodocebajanakg/suspended.html")) {
-					// handler for that page suspender extension I used
-					let match = node.url.match(/uri=([^&]*)/);
-
-					if (match && match.length >= 2) {
-						node.url = match[1];
-						console.log("extracted suspended url", node.url, "from bookmark");
-					}
 				}
 
 				if (!folder) {
