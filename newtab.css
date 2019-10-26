@@ -46,10 +46,6 @@ body {
 	background: #F6F6F7;
 }
 
-.bookmark-bar #origin-marker {
-	width: 0;
-}
-
 /* BOOKMARKS */
 
 .bookmark,
