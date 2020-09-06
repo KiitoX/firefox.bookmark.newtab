@@ -1,3 +1,5 @@
+"use strict";
+
 window.addEventListener("load", function() {
 	let templates = document.getElementById("bookmark-templates").content;
 	let bookmarkTemplate = templates.querySelector(".bookmark");
@@ -48,6 +50,8 @@ window.addEventListener("load", function() {
 		} else {
 			// this provider is functional, but sadly only returns 16px icons
 			img.src = "https://www.google.com/s2/favicons?domain_url=" + url;
+			// this seems mostly sparsely populated so probably not useful
+			// img.src = "https://favicons.githubusercontent.com/" + anchor.hostname;
 			// this mostly works but breaks on changed favicons inside pages
 			//img.src = anchor.protocol + anchor.hostname + "/favicon.ico";
 			// this is janky on most pages, but handles multi level favicons
@@ -260,54 +264,46 @@ window.addEventListener("load", function() {
 
 	// ------------------------------------------------------------------------
 
-	// TODO we may want to handle the querying and handling of bookmark changeEvents
-	//  on a site script
-
 	// TODO overflow menu, needs to change on resize, that is a bishh, would mean I need to
 	//  refactor the CSS and all, to only have one type of thing, abt overwrite lots with
 	//  direct descendant of bookmark bar... Not a fan, but necessary for this
 	//  may also give way for a few simplifications, or the opposite.. oof -signed M
 
-	let loadBookmarks = async function() {
-		let toolbar = await browser.bookmarks.getSubTree("toolbar_____");
-		toolbar = toolbar[0];
+	let showBookmarks = async function() {
+		let toolbarBookmarks = await browser.storage.local.get("___newtab_bookmarks");
+		let toolbarItems = toolbarBookmarks.___newtab_bookmarks;
 
-		let handleNode = async function(node, folder, level) {
-			if (!node.url && (!node.type || node.type === "folder")) {
+		let handleItem = async function(item, folder, level) {
+			let type = item[0];
+			if (type === "f") {
+				let title = item[1];
+				let childItems = item[2];
 				let subFolder;
 				if (!folder) {
-					subFolder = addFolder(node.title);
+					subFolder = addFolder(title);
 					level = 0;
 				} else {
-					subFolder = addFolderItem(folder, node.title, level);
+					subFolder = addFolderItem(folder, title, level);
 				}
-				node.children.forEach(function(childNode) {
-					handleNode(childNode, subFolder, level + 1);
-				});
-			} else if (node.url && (!node.type || node.type === "bookmark")) {
-				if (node.url.startsWith("place:")) {
-					// this is a special thingy we can't really work with...
-					return;
+				for (let childItem of childItems) {
+					await handleItem(childItem, subFolder, level + 1);
 				}
-
-				let icon;
-				let idMap = await browser.storage.local.get(node.id);
-				if (idMap[node.id]) {
-					icon = idMap[node.id];
-					console.log("got stored icon for", node.url);
-				}
+			} else if (type === "b") {
+				let title = item[1];
+				let url = item[2];
+				let icon = item[3];
 				if (!folder) {
-					addBookmark(node.url, node.title, icon);
+					addBookmark(url, title, icon);
 				} else {
-					addBookmarkItem(folder, node.url, node.title, icon);
+					addBookmarkItem(folder, url, title, icon);
 				}
 			}
 		};
 
-		for (let node of toolbar.children) {
-			await handleNode(node);
+		for (let item of toolbarItems) {
+			await handleItem(item);
 		}
-	};
+	}
 
 	let newTabUrl = browser.extension.getURL("newtab.html");
 
@@ -318,13 +314,10 @@ window.addEventListener("load", function() {
 		// which in turn checks whether the containing tab has been closed
 		// if it has been, it clears this page from the last opened tabs menu
 		browser.tabs.getCurrent().then((tab) => {
-			let rt = browser.runtime.connect();
-			rt.postMessage({tabId: tab.id});
+			browser.runtime.sendMessage({tabId: tab.id}).catch(console.error);
 		});
 	});
 
-	loadBookmarks().then(function() {
-		console.log("done");
-	});
+	showBookmarks();
 
 }, false);
