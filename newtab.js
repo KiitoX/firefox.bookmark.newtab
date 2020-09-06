@@ -6,6 +6,15 @@ window.addEventListener("load", function() {
 	let bookmarkFolderItemTemplate = templates.querySelector(".bookmark-folder-item");
 	let bookmarkBar = document.querySelector(".bookmark-bar");
 
+	browser.storage.sync.get().then(function(config) {
+		document.body.setAttribute("bg", config.bgType);
+		document.body.style.setProperty("--primary-colour", config.bgGradientInner);
+		document.body.style.setProperty("--secondary-colour", config.bgGradientOuter);
+		document.body.style.setProperty("--config-url", `url(${config.bgUrl})`);
+		document.body.style.setProperty("--config-css", config.bgCss);
+
+	});
+
 	let configureBookmark = function(bookmark, url, name, icon) {
 		// set base tooltip
 		bookmark.title = url;

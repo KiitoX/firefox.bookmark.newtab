@@ -11,6 +11,11 @@
       "id": "@bookmarknewtab"
     }
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@bookmarknewtab"
+    }
+  },
   "page_action": {
     "default_title": "Store favicon",
     "default_icon": {
@@ -30,6 +35,10 @@
   },
   "chrome_url_overrides": {
     "newtab": "newtab.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
   },
   "permissions": [
     "sessions",

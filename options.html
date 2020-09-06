@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="options.js"></script>
+	<style>
+			#config-container {
+				padding: 8px 0;
+			}
+
+			input,
+			textarea {
+				margin: 4px 0;
+			}
+
+			input[type=text],
+			textarea {
+				width: -moz-available;
+				resize: vertical;
+			}
+
+			#config-container:not([show=gradient]) #gradient,
+			#config-container:not([show=url]) #url,
+			#config-container:not([show=css]) #css {
+				display: none;
+			}
+	</style>
+</head>
+<body>
+<form>
+	<label for="background-type">Background type:</label>
+	<select id="background-type">
+		<option selected value="gradient">Gradient</option>
+		<option value="url">Image</option>
+		<option value="css">Custom CSS</option>
+	</select>
+	<div id="config-container" show="gradient">
+		<div id="gradient">
+			<label for="primary">Inner colour:</label>
+			<input type="color" id="primary">
+			<br>
+			<label for="secondary">Outer colour:</label>
+			<input type="color" id="secondary">
+		</div>
+		<div id="url">
+			<!-- "cover" > Cover Background -->
+			<label for="bg-url">Image url:</label>
+			<input id="bg-url" type="text"/>
+		</div>
+		<div id="css">
+			<label for="bg-css">Background:</label>
+			<textarea id="bg-css" rows="5"></textarea>
+		</div>
+	</div>
+</form>
+</body>
+</html>
