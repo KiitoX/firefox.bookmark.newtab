@@ -17,6 +17,10 @@ window.addEventListener("load", function() {
 
 	});
 
+	browser.tabs.getCurrent().then(function(tab) {
+		document.body.toggleAttribute("private", tab.incognito);
+	});
+
 	let configureBookmark = function(bookmark, url, name, icon) {
 		// set base tooltip
 		bookmark.title = url;

@@ -13,6 +13,16 @@ body {
 
 	--config-url: "";
 	--config-css: "";
+
+	--config-background: var(--gradient-bg);
+}
+
+body[bg=url] {
+	--config-background: var(--config-url);
+}
+
+body[bg=css] .page {
+	--config-background: var(--config-css);
 }
 
 .wrapper {
@@ -27,17 +37,13 @@ body {
 	flex: 1;
 
 	min-height: 10px;
-	background: var(--gradient-bg);
+	background: var(--config-background);
 	/*background: bottom -220px right 0 / auto no-repeat url("http://localhost/~manuel/bgimage.png");*/
 	image-rendering: crisp-edges;
 }
 
-body[bg=url] .page {
-	background: var(--config-url);
-}
-
-body[bg=css] .page {
-	background: var(--config-css);
+body[private] .page {
+	background: center / auto no-repeat url(/mask.svg), var(--config-background);
 }
 
 /* BOOKMARK BAR */
